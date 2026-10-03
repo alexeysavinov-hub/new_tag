@@ -16,7 +16,7 @@
 <a class="skip" href="#games">Skip to content</a>
 
 <nav class="nav" aria-label="Main">
-  <a class="nav-logo mlogo" href="#top" aria-label="TOP APP GAMES"><video class="mlogo-fx" data-src="assets/v3-logo-fx.mp4" muted loop playsinline preload="none" aria-hidden="true"></video><img src="assets/logo.webp" alt="TOP APP GAMES" /><span class="mlogo-shine" aria-hidden="true"></span></a>
+  <a class="nav-logo mlogo mlogo-lite" href="#top" aria-label="TOP APP GAMES"><img src="assets/logo.webp" alt="TOP APP GAMES" /><span class="mlogo-shine" aria-hidden="true"></span></a>
   <div class="nav-links">
     <a href="#games" data-navlink="1">Games</a>
     <a href="#team" data-navlink="1">Team</a>
@@ -26,7 +26,10 @@
     <a href="#contact" data-navlink="1">Contact</a>
     <a class="gbtn gbtn-sm" href="#games">Play now</a>
   </div>
-  <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav-right">
+    <button class="sound" type="button" aria-pressed="false" aria-label="Music: off" title="8-bit music"><svg class="sound-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"></path><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"></path></svg><span class="sound-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
 </nav>
 <div class="menu">
   <a href="#games" data-navlink="1"><small>01</small>Games</a>
@@ -66,7 +69,7 @@
     </div>
     <div class="gstack">
       <article class="gcard" style="--i:0; --tint: linear-gradient(160deg,#154087,#0B1E48);">
-        <div class="g-art"><img src="assets/ludus-card.webp" alt="LUDUS key art" loading="lazy" /></div>
+        <div class="g-art"><img src="assets/ludus-card.webp" alt="LUDUS key art" loading="lazy" /><video class="g-vid" data-src="assets/v3-ludus-loop.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
         <div class="g-copy">
           <span class="eyebrow">Strategy Battle PvP</span>
           <h3 class="g-name chunk">Ludus</h3>
@@ -80,7 +83,7 @@
         </div>
       </article>
       <article class="gcard rev" style="--i:1; --tint: linear-gradient(160deg,#3F2170,#1B0F38);">
-        <div class="g-art"><img src="assets/siege-card.webp" alt="Siege Arena key art" loading="lazy" /></div>
+        <div class="g-art"><img src="assets/siege-card.webp" alt="Siege Arena key art" loading="lazy" /><video class="g-vid" data-src="assets/v3-siege-loop.mp4" muted loop playsinline preload="none" aria-hidden="true"></video></div>
         <div class="g-copy">
           <span class="eyebrow">Build &amp; Fight</span>
           <h3 class="g-name chunk">Siege Arena</h3>
@@ -245,6 +248,7 @@
   </div>
 </footer>
 
+<script src="v3/chiptune.js"></script>
 <script src="v3/v3.js"></script>
 </body>
 </html>

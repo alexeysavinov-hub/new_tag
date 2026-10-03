@@ -48,6 +48,18 @@
   }
   Array.prototype.forEach.call(document.querySelectorAll('.hero-vid,.g-vid,.mlogo-fx'), loopVid);
 
+  /* 8-bit music toggle (off by default) */
+  var snd = document.querySelector('.sound');
+  if (snd && window.TAGChiptune) {
+    var setSnd = function (v) { snd.setAttribute('aria-pressed', String(v)); snd.setAttribute('aria-label', v ? 'Music: on' : 'Music: off'); try { localStorage.setItem('tag-music', v ? '1' : '0'); } catch (e) {} };
+    snd.addEventListener('click', function () { setSnd(window.TAGChiptune.toggle()); });
+    var want = false; try { want = localStorage.getItem('tag-music') === '1'; } catch (e) {}
+    if (want) {
+      var arm = function () { setSnd(window.TAGChiptune.set(true)); document.removeEventListener('pointerdown', arm); document.removeEventListener('keydown', arm); };
+      document.addEventListener('pointerdown', arm); document.addEventListener('keydown', arm);
+    }
+  }
+
   /* marquees: clone children once for a seamless loop */
   document.querySelectorAll('[data-marquee]').forEach(function (track) {
     Array.prototype.slice.call(track.children).forEach(function (k) {
