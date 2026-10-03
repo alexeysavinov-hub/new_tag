@@ -62,6 +62,14 @@
     a.gain.exponentialRampToValueAtTime(0.0001, t + dur);
     o.connect(a); a.connect(vol); o.start(t); o.stop(t + dur + 0.02);
   }
+  /* iOS: Web Audio obeys the ring/silent switch unless an <audio> element is playing - loop a silent WAV to switch the session to playback */
+  var unlock;
+  function silentAudio() {
+    var sr = 8000, n = sr, buf = new ArrayBuffer(44 + n), v = new DataView(buf), w = function (o, str) { for (var i = 0; i < str.length; i++) v.setUint8(o + i, str.charCodeAt(i)); };
+    w(0, 'RIFF'); v.setUint32(4, 36 + n, true); w(8, 'WAVE'); w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, sr, true); v.setUint32(28, sr, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); w(36, 'data'); v.setUint32(40, n, true);
+    for (var i = 0; i < n; i++) v.setUint8(44 + i, 128);
+    var a = document.createElement('audio'); a.src = URL.createObjectURL(new Blob([buf], { type: 'audio/wav' })); a.loop = true; a.setAttribute('playsinline', ''); a.preload = 'auto'; return a;
+  }
   var noiseBuf;
   function noise(t, dur, g, hp) {
     if (!noiseBuf) { noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate); var d = noiseBuf.getChannelData(0); for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
@@ -99,6 +107,7 @@
   function start() {
     if (!ctx) init();
     if (ctx.state === 'suspended') ctx.resume();
+    try { if (!unlock) unlock = silentAudio(); var p = unlock.play(); if (p && p.catch) p.catch(function () {}); } catch (e) {}
     if (timer) return;
     step = 0; next = ctx.currentTime + 0.05;
     vol.gain.cancelScheduledValues(ctx.currentTime); vol.gain.setValueAtTime(0.0001, ctx.currentTime); vol.gain.exponentialRampToValueAtTime(1, ctx.currentTime + 1.2);
@@ -107,6 +116,7 @@
   function stop() {
     if (!ctx || !timer) return;
     clearInterval(timer); timer = null;
+    if (unlock) unlock.pause();
     vol.gain.cancelScheduledValues(ctx.currentTime); vol.gain.setValueAtTime(Math.max(vol.gain.value, 0.0001), ctx.currentTime); vol.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.7);
     setTimeout(function () { if (!timer && ctx.state === 'running') ctx.suspend(); }, 800);
   }
@@ -115,5 +125,5 @@
     set: function (v) { if (v !== on) this.toggle(); return on; },
     get playing() { return on; }
   };
-  document.addEventListener('visibilitychange', function () { if (!ctx || !on) return; if (document.hidden) { ctx.suspend(); } else { ctx.resume(); next = Math.max(next, ctx.currentTime + 0.05); } });
+  document.addEventListener('visibilitychange', function () { if (!ctx || !on) return; if (document.hidden) { ctx.suspend(); } else { ctx.resume(); if (unlock) { var p = unlock.play(); if (p && p.catch) p.catch(function () {}); } next = Math.max(next, ctx.currentTime + 0.05); } });
 })();
