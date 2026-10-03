@@ -59,6 +59,7 @@ section{scroll-margin-top:80px}
 .nav-links .gbtn,.nav-links .gbtn:hover{margin-left:10px;text-shadow:none;color:#15100A;background:var(--gold);font-weight:800;font-size:15px;letter-spacing:.02em;border-color:#15100A;box-shadow:0 4px 0 #15100A,0 10px 24px rgba(0,0,0,.5)}
 .nav-links .gbtn:hover{filter:none;background:var(--gold2)}
 .nav-right{display:flex;align-items:center;gap:10px}
+@media(max-width:899px){.sound{display:none}}
 .sound{position:relative;display:grid;place-items:center;width:48px;height:48px;border-radius:14px;border:2px solid var(--line);background:#0B0C14;color:var(--ink);cursor:pointer;box-shadow:0 4px 0 var(--line);transition:transform .15s,box-shadow .15s,background .2s}
 .sound:hover{background:#151726}
 .sound:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
@@ -126,7 +127,7 @@ body.menu-open{overflow:hidden}
 
 /* games - sticky stack */
 .gstack{display:grid;gap:28px}
-.gcard{position:sticky;top:calc(84px + var(--i)*18px);display:grid;gap:28px;padding:clamp(18px,3vw,38px);border-radius:28px;border:2px solid var(--line);background:var(--tint,#101426);box-shadow:0 10px 0 var(--line),0 30px 80px rgba(0,0,0,.5);min-height:min(76vh,700px);align-items:center;overflow:hidden}
+.gcard{position:sticky;top:calc(84px + var(--i)*18px);display:grid;gap:28px;padding:clamp(18px,3vw,38px);border-radius:28px;border:2px solid var(--line);background:var(--tint,#101426);box-shadow:0 10px 0 var(--line),0 30px 80px rgba(0,0,0,.5);min-height:min(60vh,540px);align-items:center;overflow:hidden}
 .gcard::before{content:'';position:absolute;inset:0;background:radial-gradient(60% 80% at 18% 8%,rgba(255,255,255,.1),transparent 60%);pointer-events:none}
 .g-art{position:relative;border-radius:18px;overflow:hidden;border:2px solid var(--line);aspect-ratio:16/10;box-shadow:0 6px 0 var(--line);background:#0B0C14}
 .g-art img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
@@ -194,12 +195,12 @@ body.menu-open{overflow:hidden}
 @media(min-width:760px){.facts{grid-template-columns:repeat(4,1fr)}}
 
 /* studio */
-.studio-banner{position:relative;border-radius:28px;overflow:hidden;border:2px solid var(--line);box-shadow:0 10px 0 var(--line),0 30px 80px rgba(0,0,0,.5);aspect-ratio:16/7;min-height:380px;background:url('../assets/v3-limassol-mascot.jpg') 100% 60%/cover no-repeat}
+.studio-banner{position:relative;border-radius:28px;overflow:hidden;border:2px solid var(--line);box-shadow:0 10px 0 var(--line),0 30px 80px rgba(0,0,0,.5);aspect-ratio:16/7;min-height:380px;background:url('../assets/v3-studio-wall.jpg') 100% 60%/cover no-repeat}
 .studio-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,8,15,.82) 0,rgba(7,8,15,.62) 38%,rgba(7,8,15,0) 60%),linear-gradient(180deg,rgba(7,8,15,0) 55%,rgba(7,8,15,.55))}
 .studio-banner .sec-h{position:absolute;left:clamp(18px,3vw,40px);right:auto;max-width:min(52%,560px);bottom:clamp(18px,3vw,36px);margin:0}
 .studio-banner .sec-h h2{font-size:clamp(32px,4.4vw,58px);text-wrap:balance}
 .studio-banner .lead{color:var(--ink);opacity:.92;font-size:16px;text-shadow:0 1px 3px rgba(0,0,0,.7)}
-@media(max-width:720px){.studio-banner{aspect-ratio:auto;min-height:0;height:560px;background-position:66% 50%}.studio-banner::before{background:linear-gradient(180deg,rgba(7,8,15,0) 35%,rgba(7,8,15,.9) 70%)}.studio-banner .sec-h{right:clamp(18px,3vw,40px);max-width:none}}
+@media(max-width:720px){.studio-banner{aspect-ratio:auto;min-height:0;height:560px;background-position:50% 50%}.studio-banner::before{background:linear-gradient(180deg,rgba(7,8,15,0) 35%,rgba(7,8,15,.9) 70%)}.studio-banner .sec-h{right:clamp(18px,3vw,40px);max-width:none}}
 .photo-marquee{margin-top:28px;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
 .photo-track{display:flex;gap:14px;width:max-content;padding:8px 0;animation:marquee 80s linear infinite}
 .photo-marquee:hover .photo-track{animation-play-state:paused}
@@ -310,7 +311,7 @@ footer{position:relative;z-index:1;padding:80px 0 46px;text-align:center}
 .hero-vid{object-position:50% 50%}
 .g-vid{display:block}
 .rp{background-image:url('../assets/v3-roster-stage-m.jpg');min-height:0}
-.studio-banner{background-image:url('../assets/v3-limassol-mascot-m.jpg')}
+.studio-banner{background-image:url('../assets/v3-studio-wall-m.jpg')}
 .sec{padding:84px 0 16px}
 .hero{min-height:0;padding:112px 0 64px}
 .nav.solid{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(7,8,15,.94)}

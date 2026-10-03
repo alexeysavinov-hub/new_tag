@@ -55,7 +55,7 @@
 
   /* 8-bit music toggle (off by default) */
   var snd = document.querySelector('.sound');
-  if (snd && window.TAGChiptune) {
+  if (snd && window.TAGChiptune && window.matchMedia('(min-width:900px)').matches) {
     var setSnd = function (v) { snd.setAttribute('aria-pressed', String(v)); snd.setAttribute('aria-label', v ? 'Music: on' : 'Music: off'); try { localStorage.setItem('tag-music', v ? '1' : '0'); } catch (e) {} };
     snd.addEventListener('click', function () { setSnd(window.TAGChiptune.toggle()); });
     var want = false; try { want = localStorage.getItem('tag-music') === '1'; } catch (e) {}
@@ -165,10 +165,10 @@
       cards.forEach(function (c, k) { var d = Math.abs(c.offsetLeft - press.offsetLeft - x); if (d < bd) { bd = d; best = k; } });
       dots.childNodes.forEach(function (d, k) { d.classList.toggle('on', k === best); });
     };
-    var pv = press.previousElementSibling, nx = pv && pv.classList.contains('next') ? pv : null, pr = nx && nx.previousElementSibling;
+    var pSib = press.previousElementSibling, pBtnNext = pSib && pSib.classList.contains('next') ? pSib : null, pBtnPrev = pBtnNext && pBtnNext.previousElementSibling;
     var stepW = function () { return (cards[0] ? cards[0].getBoundingClientRect().width : 320) + (parseFloat(getComputedStyle(press).columnGap || getComputedStyle(press).gap) || 20); };
-    var arrows = function () { if (!nx || !pr) return; var max = press.scrollWidth - press.clientWidth - 2; pr.toggleAttribute('disabled', press.scrollLeft <= 2); nx.toggleAttribute('disabled', press.scrollLeft >= max); };
-    if (nx && pr) { nx.addEventListener('click', function () { press.scrollBy({ left: stepW(), behavior: 'smooth' }); }); pr.addEventListener('click', function () { press.scrollBy({ left: -stepW(), behavior: 'smooth' }); }); }
+    var arrows = function () { if (!pBtnNext || !pBtnPrev) return; var max = press.scrollWidth - press.clientWidth - 2; pBtnPrev.toggleAttribute('disabled', press.scrollLeft <= 2); pBtnNext.toggleAttribute('disabled', press.scrollLeft >= max); };
+    if (pBtnNext && pBtnPrev) { pBtnNext.addEventListener('click', function () { press.scrollBy({ left: stepW(), behavior: 'smooth' }); }); pBtnPrev.addEventListener('click', function () { press.scrollBy({ left: -stepW(), behavior: 'smooth' }); }); }
     press.addEventListener('scroll', function () { mark(); arrows(); }, { passive: true }); window.addEventListener('resize', arrows); mark(); arrows();
   }
 
