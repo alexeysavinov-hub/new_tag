@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="assets/v3-hero-art.jpg" media="(min-width:701px)" />
+<link rel="preload" as="image" href="assets/v3-hero-art-m.jpg" media="(max-width:700px)" />
 <link rel="stylesheet" href="v3/v3.css" />
 <link rel="icon" type="image/png" href="assets/favicon.png" />
 <link rel="apple-touch-icon" href="assets/favicon.png" />
@@ -28,17 +30,21 @@
   </div>
   <div class="nav-right">
     <button class="sound" type="button" aria-pressed="false" aria-label="Music: off" title="8-bit music"><svg class="sound-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"></path><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"></path></svg><span class="sound-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
-    <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i><span></span><span></span></i><b>Menu</b></button>
   </div>
 </nav>
-<div class="menu">
+<div class="menu" aria-hidden="true">
+  <div class="menu-bg" aria-hidden="true"></div>
+  <div class="menu-head"><span class="eyebrow">Paused</span></div>
+  <nav class="menu-list" aria-label="Mobile">
   <a href="#games" data-navlink="1"><small>01</small>Games</a>
   <a href="#team" data-navlink="1"><small>02</small>Team</a>
   <a href="#studio" data-navlink="1"><small>03</small>Studio</a>
   <a href="#story" data-navlink="1"><small>04</small>Story</a>
   <a href="#press" data-navlink="1"><small>05</small>Press</a>
   <a href="#contact" data-navlink="1"><small>06</small>Contact</a>
-  <div class="menu-foot">TOP APP GAMES Ltd - Cyprus</div>
+  </nav>
+  <div class="menu-foot"><a class="gbtn" href="#games">Play now</a><span>TOP APP GAMES Ltd - Cyprus</span></div>
 </div>
 
 <header class="hero" id="top" data-screen-label="Hero">
@@ -139,7 +145,7 @@
     <div class="rgrid rv" role="group" aria-label="Leadership team">
       <button class="rt" type="button" aria-pressed="true" data-img="assets/team-markov.webp" data-name="Vladimir Markov" data-role="Co-Founder &amp; CEO" data-xp="21" data-bio="21 years in game development (Nikita, Nival, My.Games). Creator of Hustle Castle, a game played by 80 million people. Led teams on globally launched mid-core titles."><img src="assets/team-markov.webp" alt="" loading="lazy" /><span>Markov</span></button>
       <button class="rt" type="button" aria-pressed="false" data-img="assets/team-nikolskiy.webp" data-name="Vladimir Nikolskiy" data-role="Co-Founder" data-xp="20" data-bio="Two decades transforming an indie studio into My.Games - a $500M-turnover European gaming company. Founder of Utmost Games."><img src="assets/team-nikolskiy.webp" alt="" loading="lazy" /><span>Nikolskiy</span></button>
-      <button class="rt" type="button" aria-pressed="false" data-img="assets/team-trifonov.png" data-name="Mikhail Trifonov" data-role="Managing Director" data-xp="18" data-bio="18+ years in mobile game development. Led game products with $500M+ in revenue (MY.GAMES). Focused on product strategy, game design and AI-powered development."><img src="assets/team-trifonov.png" alt="" loading="lazy" /><span>Trifonov</span></button>
+      <button class="rt" type="button" aria-pressed="false" data-img="assets/team-trifonov.webp" data-name="Mikhail Trifonov" data-role="Managing Director" data-xp="18" data-bio="18+ years in mobile game development. Led game products with $500M+ in revenue (MY.GAMES). Focused on product strategy, game design and AI-powered development."><img src="assets/team-trifonov.webp" alt="" loading="lazy" /><span>Trifonov</span></button>
       <button class="rt" type="button" aria-pressed="false" data-img="assets/team-shishkin.webp" data-name="Evgeni Shishkin" data-role="Executive Director" data-xp="10" data-li="https://www.linkedin.com/in/evgeniy-shishkin-01ba19127/" data-bio="10+ years in mid-core projects. Five years leading game-design teams."><img src="assets/team-shishkin.webp" alt="" loading="lazy" /><span>Shishkin</span></button>
       <button class="rt" type="button" aria-pressed="false" data-img="assets/team-gamedesign.webp" data-name="Alexey Dergachev" data-role="Executive Director" data-xp="12" data-bio="12+ years levelling up through the game-design path. Passionate about R&amp;D processes, game mechanics and systems."><img src="assets/team-gamedesign.webp" alt="" loading="lazy" /><span>Dergachev</span></button>
       <button class="rt" type="button" aria-pressed="false" data-img="assets/team-altunin.webp" data-name="Kirill Altunin" data-role="Tech Director" data-xp="19" data-li="https://www.linkedin.com/in/kirill-altunin/" data-bio="19 years of application development. 8 published games. Deep passion for game tech."><img src="assets/team-altunin.webp" alt="" loading="lazy" /><span>Altunin</span></button>
