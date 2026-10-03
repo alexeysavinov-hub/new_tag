@@ -231,7 +231,28 @@ body.menu-open{overflow:hidden}
 .pc h3{font-size:17px;font-weight:700;margin:8px 0 8px;line-height:1.35}
 .pc p{font-size:14px;color:var(--muted);margin:0;line-height:1.5}
 .pc .more{display:inline-block;margin-top:12px;font-weight:700;font-size:13.5px;color:var(--gold)}
-@media(min-width:700px){.press{grid-template-columns:repeat(2,1fr)}}
+.press-wrap{position:relative}
+.press{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 calc(-1*clamp(20px,4vw,48px));padding:6px clamp(20px,4vw,48px) 18px;scroll-padding:0 clamp(20px,4vw,48px)}
+.press::-webkit-scrollbar{display:none}
+.press .pc{flex:0 0 82%;max-width:340px;scroll-snap-align:start;scroll-snap-stop:always}
+.press-dots{display:flex;justify-content:center;gap:8px;margin-top:4px}
+.press-dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .2s,transform .2s}
+.press-dots i.on{background:var(--gold);transform:scale(1.25)}
+.parrow{display:none;position:absolute;top:50%;z-index:3;width:52px;height:52px;margin-top:-40px;border-radius:50%;border:2px solid var(--line);background:var(--gold);color:#1B1208;box-shadow:0 4px 0 var(--line);cursor:pointer;place-items:center;transition:transform .15s,box-shadow .15s,opacity .2s,background .2s}
+.parrow svg{width:22px;height:22px}
+.parrow.prev{left:-26px}.parrow.next{right:-26px}
+.parrow:hover{background:var(--gold2)}
+.parrow:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.parrow[disabled]{opacity:.35;pointer-events:none}
+@media(min-width:700px){
+.press{gap:22px;margin:0 calc(-1*clamp(20px,4vw,48px));padding:8px clamp(20px,4vw,48px) 22px;scroll-padding:0 clamp(20px,4vw,48px)}
+.press .pc{flex:0 0 calc(50% - 11px);max-width:none}
+.press .pc:hover{transform:translateY(-6px)}
+.press-dots{display:none}
+.parrow{display:grid}
+}
+@media(min-width:1100px){.press .pc{flex:0 0 calc(33.333% - 14.7px)}}
+@media(max-width:699px){.press .pc:hover{transform:none;box-shadow:0 5px 0 var(--line)}}
 @media(min-width:1024px){.press{grid-template-columns:repeat(4,1fr)}}
 
 /* contact */
@@ -282,6 +303,8 @@ footer{position:relative;z-index:1;padding:80px 0 46px;text-align:center}
 /* mobile: lighter assets, no sticky stack, tighter rhythm */
 @media(max-width:700px){
 .hero-bg{background-image:url('../assets/v3-hero-art-m.jpg');animation:none}
+.hero-vid{object-position:50% 50%}
+.g-vid{display:block}
 .rp{background-image:url('../assets/v3-roster-stage-m.jpg');min-height:0}
 .studio-banner{background-image:url('../assets/v3-limassol-mascot-m.jpg')}
 .sec{padding:84px 0 16px}

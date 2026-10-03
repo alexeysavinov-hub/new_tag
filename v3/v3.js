@@ -39,12 +39,14 @@
   /* hero loop: fade the video in once it plays; pause when offscreen */
   var lite = window.matchMedia('(max-width:767px)').matches || (navigator.connection && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType || '')));
   function loopVid(hv) {
-    if (reduced || lite) { hv.remove(); return; }
+    var mob = window.matchMedia('(max-width:767px)').matches, srcM = hv.getAttribute('data-src-m');
+    if (reduced || (lite && !(mob && srcM))) { hv.remove(); return; }
+    var src = (mob && srcM) ? srcM : hv.getAttribute('data-src');
     hv.addEventListener('playing', function () { hv.classList.add('on'); }, { once: true });
     hv.addEventListener('error', function () { hv.remove(); });
     new IntersectionObserver(function (es) {
       es.forEach(function (e) {
-        if (e.isIntersecting) { if (!hv.src) { hv.src = hv.getAttribute('data-src'); hv.preload = 'auto'; } hv.play().catch(function () {}); }
+        if (e.isIntersecting) { if (!hv.src) { hv.src = src; hv.preload = 'auto'; } hv.play().catch(function () {}); }
         else { hv.pause(); }
       });
     }, { threshold: 0.05, rootMargin: '200px 0px' }).observe(hv);
@@ -150,6 +152,24 @@
         else { tx = ty = 0; kick(); }
       });
     }, { threshold: 0.2 }).observe(mas);
+  }
+
+  /* press carousel dots (mobile) */
+  var press = document.querySelector('.press');
+  if (press) {
+    var cards = press.querySelectorAll('.pc'), dots = document.createElement('div'); dots.className = 'press-dots'; dots.setAttribute('aria-hidden', 'true');
+    cards.forEach(function () { dots.appendChild(document.createElement('i')); });
+    press.parentNode.insertBefore(dots, press.nextSibling);
+    var mark = function () {
+      var x = press.scrollLeft, best = 0, bd = Infinity;
+      cards.forEach(function (c, k) { var d = Math.abs(c.offsetLeft - press.offsetLeft - x); if (d < bd) { bd = d; best = k; } });
+      dots.childNodes.forEach(function (d, k) { d.classList.toggle('on', k === best); });
+    };
+    var pv = press.previousElementSibling, nx = pv && pv.classList.contains('next') ? pv : null, pr = nx && nx.previousElementSibling;
+    var stepW = function () { return (cards[0] ? cards[0].getBoundingClientRect().width : 320) + (parseFloat(getComputedStyle(press).columnGap || getComputedStyle(press).gap) || 20); };
+    var arrows = function () { if (!nx || !pr) return; var max = press.scrollWidth - press.clientWidth - 2; pr.toggleAttribute('disabled', press.scrollLeft <= 2); nx.toggleAttribute('disabled', press.scrollLeft >= max); };
+    if (nx && pr) { nx.addEventListener('click', function () { press.scrollBy({ left: stepW(), behavior: 'smooth' }); }); pr.addEventListener('click', function () { press.scrollBy({ left: -stepW(), behavior: 'smooth' }); }); }
+    press.addEventListener('scroll', function () { mark(); arrows(); }, { passive: true }); window.addEventListener('resize', arrows); mark(); arrows();
   }
 
   /* contact form (Web3Forms) */
