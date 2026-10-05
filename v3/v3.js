@@ -38,15 +38,49 @@
 
   /* hero loop: fade the video in once it plays; pause when offscreen */
   var lite = window.matchMedia('(max-width:767px)').matches || (navigator.connection && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType || '')));
+  /* hero: buffer the whole loop before playing (streaming at its own bitrate stutters), drop back to the still
+     if the machine cannot present it smoothly (<15fps over 3s); card loops keep the simple path */
   function loopVid(hv) {
     var mob = window.matchMedia('(max-width:767px)').matches, srcM = hv.getAttribute('data-src-m');
     if (reduced || (lite && !(mob && srcM))) { hv.remove(); return; }
     var src = (mob && srcM) ? srcM : hv.getAttribute('data-src');
-    hv.addEventListener('playing', function () { hv.classList.add('on'); }, { once: true });
-    hv.addEventListener('error', function () { hv.remove(); });
+    var hero = hv.classList.contains('hero-vid'), dead = false, ready = !hero, seen = false, armed = false;
+    var kill = function () { if (dead) return; dead = true; hv.pause(); hv.classList.remove('on'); setTimeout(function () { hv.remove(); }, 1400); };
+    var full = function () { try { return hv.duration > 0 && hv.buffered.length > 0 && hv.buffered.end(hv.buffered.length - 1) >= hv.duration - 0.3; } catch (e) { return false; } };
+    var go = function () { if (!dead && ready && seen) hv.play().catch(function () {}); };
+    hv.addEventListener('error', kill);
+    hv.addEventListener('playing', function () {
+      hv.classList.add('on');
+      if (!hero || armed) return; armed = true;
+      setTimeout(function () {
+        if (dead || hv.paused || document.hidden) { armed = false; return; }
+        var n = 0, hid = false, t0 = performance.now(), id = 0, rvfc = !!hv.requestVideoFrameCallback;
+        var q0 = hv.getVideoPlaybackQuality ? hv.getVideoPlaybackQuality() : null;
+        var onVis = function () { if (document.hidden) hid = true; };
+        var tick = function () { n++; id = hv.requestVideoFrameCallback(tick); };
+        document.addEventListener('visibilitychange', onVis);
+        if (rvfc) id = hv.requestVideoFrameCallback(tick);
+        setTimeout(function () {
+          document.removeEventListener('visibilitychange', onVis);
+          if (rvfc && id) hv.cancelVideoFrameCallback(id);
+          if (dead || hid || hv.paused || document.hidden) { armed = false; return; }
+          var s = (performance.now() - t0) / 1000, bad = false;
+          if (rvfc) bad = n / s < 15;
+          else if (q0 && hv.getVideoPlaybackQuality) { var q = hv.getVideoPlaybackQuality(), tot = q.totalVideoFrames - q0.totalVideoFrames; bad = tot > 20 && (q.droppedVideoFrames - q0.droppedVideoFrames) / tot > 0.3; }
+          if (bad) kill();
+        }, 3000);
+      }, 1000);
+    });
+    if (hero) {
+      hv.addEventListener('waiting', function () { hv.classList.remove('on'); });
+      var onBuf = function () { if (!ready && full()) { ready = true; go(); } };
+      hv.addEventListener('progress', onBuf); hv.addEventListener('loadeddata', onBuf);
+      hv.addEventListener('canplaythrough', function () { onBuf(); setTimeout(function () { if (!ready) { ready = true; go(); } }, 2500); }, { once: true });
+    }
     new IntersectionObserver(function (es) {
       es.forEach(function (e) {
-        if (e.isIntersecting) { if (!hv.src) { hv.src = src; hv.preload = 'auto'; } hv.play().catch(function () {}); }
+        seen = e.isIntersecting;
+        if (seen) { if (!hv.src) { hv.src = src; hv.preload = 'auto'; } go(); }
         else { hv.pause(); }
       });
     }, { threshold: 0.05, rootMargin: '200px 0px' }).observe(hv);
@@ -105,7 +139,7 @@
   if (bar && pct) {
     if (reduced) { bar.style.width = '73%'; pct.textContent = '73%'; }
     else {
-      var DUR = 8000, last = -1;
+      var DUR = 8000, last = -1, ldOn = false, ldRaf = 0;
       var frame = function (t) {
         var ph = (t % DUR) / DUR, p;
         if (ph < 0.5) p = ph / 0.5 * 78;
@@ -113,9 +147,12 @@
         else p = 99;
         p = Math.floor(p);
         if (p !== last) { last = p; bar.style.width = p + '%'; pct.textContent = p + '%'; }
-        requestAnimationFrame(frame);
+        ldRaf = ldOn ? requestAnimationFrame(frame) : 0;
       };
-      requestAnimationFrame(frame);
+      /* only animate while the card is on screen */
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) { ldOn = e.isIntersecting; if (ldOn && !ldRaf) ldRaf = requestAnimationFrame(frame); });
+      }).observe(bar);
     }
   }
 

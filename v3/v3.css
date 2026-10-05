@@ -47,7 +47,7 @@ section{scroll-margin-top:80px}
 .mlogo-fx{position:absolute;z-index:1;left:50%;top:50%;width:200%;height:auto;aspect-ratio:1;transform:translate(-50%,-50%);mix-blend-mode:screen;pointer-events:none;opacity:0;transition:opacity 1.2s ease;-webkit-mask:radial-gradient(circle,#000 40%,transparent 72%);mask:radial-gradient(circle,#000 40%,transparent 72%)}
 .mlogo-fx.on{opacity:1}
 .mlogo-fx.on~img{filter:drop-shadow(0 3px 0 rgba(0,0,0,.55)) drop-shadow(0 0 10px rgba(255,190,70,.35))}
-.mlogo-shine{position:absolute;z-index:3;inset:0;pointer-events:none;-webkit-mask:url('../assets/logo.webp') center/contain no-repeat;mask:url('../assets/logo.webp') center/contain no-repeat;background:linear-gradient(112deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.85) 50%,rgba(255,255,255,0) 58%) no-repeat;background-size:260% 100%;animation:mshine 6s ease-in-out infinite}
+.mlogo-shine{position:absolute;z-index:3;inset:0;pointer-events:none;-webkit-mask:url('../assets/logo.webp') center/contain no-repeat;mask:url('../assets/logo.webp') center/contain no-repeat;background:linear-gradient(112deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.85) 50%,rgba(255,255,255,0) 58%) no-repeat;background-size:260% 100%;animation:mshine 6s ease-in-out 3}
 @keyframes mglow{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(.94)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
 @keyframes mshine{0%{background-position:160% 0}22%,100%{background-position:-60% 0}}
 .mlogo-lite::before{display:none}
