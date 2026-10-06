@@ -24,9 +24,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-<link rel="preload" as="image" href="assets/v3-hero-art.jpg" media="(min-width:701px)" />
-<link rel="preload" as="image" href="assets/v3-hero-art-m.jpg" media="(max-width:700px)" />
-<link rel="stylesheet" href="v3/v3.css?v=3" />
+<link rel="preload" as="image" href="assets/hero-victory.jpg?v=2" imagesrcset="assets/hero-victory-1200.jpg?v=2 1200w, assets/hero-victory.jpg?v=2 2400w" imagesizes="max(100vw, 160vh)" />
+<link rel="stylesheet" href="v3/v3.css?v=17" />
 <link rel="icon" type="image/png" href="assets/favicon.png" />
 <link rel="apple-touch-icon" href="assets/favicon.png" />
 </head>
@@ -64,14 +63,14 @@
 </div>
 
 <header class="hero" id="top" data-screen-label="Hero">
-  <div class="hero-bg" aria-hidden="true"><video class="hero-vid" data-src="assets/v3-hero-loop.mp4?v=1080b" data-src-m="assets/v3-hero-loop-m.mp4" poster="assets/v3-hero-art.jpg" muted loop playsinline preload="none"></video></div>
+  <div class="hero-bg" aria-hidden="true"><div class="hs-stage" id="hs-stage"><div class="hs-par"><img class="hs-bg" src="assets/hero-victory.jpg?v=2" srcset="assets/hero-victory-1200.jpg?v=2 1200w, assets/hero-victory.jpg?v=2 2400w" sizes="max(100vw, 160vh)" alt="" fetchpriority="high" decoding="async" /><div class="hs-sun"></div><div class="hs-rays"></div><div class="hs-glints"><i style="--x:42.1%;--y:35.2%;--s:1.4;--d:0s"></i><i style="--x:56%;--y:9.6%;--s:1.2;--d:.9s"></i><i style="--x:49.6%;--y:76%;--s:1;--d:1.7s"></i><i style="--x:56.4%;--y:85.4%;--s:.9;--d:2.6s"></i><i style="--x:83.8%;--y:47.6%;--s:.8;--d:.5s"></i><i style="--x:87.1%;--y:6%;--s:.9;--d:3.1s"></i><i style="--x:61.3%;--y:56.4%;--s:.8;--d:2.1s"></i><i style="--x:48.2%;--y:39.2%;--s:.7;--d:3.6s"></i><i style="--x:67.3%;--y:55.6%;--s:.7;--d:1.2s"></i></div></div></div><canvas class="hs-fx" id="hs-fx"></canvas></div>
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="wrap">
     <div class="hero-copy">
       <h1 class="chunk">
         <span class="l"><span class="w chunk-ink" style="--i:0">We</span> <span class="w chunk-ink" style="--i:1">create</span></span>
         <span class="l"><span class="w" style="--i:2">games</span></span>
-        <span class="l"><span class="w chunk-ink" style="--i:3">players</span> <span class="w chunk-red" style="--i:4">love.</span></span>
+        <span class="l"><span class="w chunk-ink" style="--i:3">players</span> <span class="w chunk-red" style="--i:4">love</span></span>
       </h1>
       <p class="hero-sub">Strategy, competition and fresh experiences - engineered to keep communities playing, connecting and coming back for more.</p>
       <div class="btn-row">
@@ -275,7 +274,8 @@
   </div>
 </footer>
 
-<script src="v3/chiptune.js"></script>
-<script src="v3/v3.js?v=3"></script>
+<script src="v3/chiptune-royal.js?v=1"></script>
+<script src="v3/v3.js?v=5"></script>
+<script src="v3/hero-fx.js?v=2" defer></script>
 </body>
 </html>

@@ -85,7 +85,19 @@
       });
     }, { threshold: 0.05, rootMargin: '200px 0px' }).observe(hv);
   }
-  Array.prototype.forEach.call(document.querySelectorAll('.hero-vid,.g-vid,.mlogo-fx'), loopVid);
+  Array.prototype.forEach.call(document.querySelectorAll('.g-vid,.mlogo-fx'), loopVid);
+
+  /* hero parallax: pointer-driven depth (art vs embers), desktop pointers only */
+  var heroEl = document.querySelector('.hero');
+  if (heroEl && !reduced && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    var ppend = false, ppx = 0, ppy = 0;
+    window.addEventListener('mousemove', function (e) {
+      if (window.scrollY > window.innerHeight) return;
+      ppx = e.clientX / window.innerWidth * 2 - 1; ppy = e.clientY / window.innerHeight * 2 - 1;
+      if (ppend) return; ppend = true;
+      requestAnimationFrame(function () { ppend = false; heroEl.style.setProperty('--mx', ppx.toFixed(3)); heroEl.style.setProperty('--my', ppy.toFixed(3)); });
+    }, { passive: true });
+  }
 
   /* 8-bit music toggle (off by default) */
   var snd = document.querySelector('.sound');
