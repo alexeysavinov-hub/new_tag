@@ -1,7 +1,7 @@
 // Hero FX: confetti burst + ambient gold, magic sparkles from the sorceress staff
 (function () {
   'use strict';
-  var cv = document.getElementById('hs-fx'), par = document.querySelector('.hs-par'), hero = document.querySelector('.hero');
+  var cv = document.getElementById('hs-fx'), par = document.querySelector('.hs-par-fg'), hero = document.querySelector('.hero');
   if (!cv || !par || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var ctx = cv.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 1.5), W = 0, H = 0, ox = 0, oy = 0, pw = 0, ph = 0;
   var mob = matchMedia('(max-width:700px)').matches, AMB = mob ? 14 : 34;
