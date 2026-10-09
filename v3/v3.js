@@ -87,21 +87,9 @@
   }
   Array.prototype.forEach.call(document.querySelectorAll('.g-vid,.mlogo-fx'), loopVid);
 
-  /* hero parallax: pointer-driven depth (art vs embers), desktop pointers only */
-  var heroEl = document.querySelector('.hero');
-  if (heroEl && !reduced && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
-    var ppend = false, ppx = 0, ppy = 0;
-    window.addEventListener('mousemove', function (e) {
-      if (window.scrollY > window.innerHeight) return;
-      ppx = e.clientX / window.innerWidth * 2 - 1; ppy = e.clientY / window.innerHeight * 2 - 1;
-      if (ppend) return; ppend = true;
-      requestAnimationFrame(function () { ppend = false; heroEl.style.setProperty('--mx', ppx.toFixed(3)); heroEl.style.setProperty('--my', ppy.toFixed(3)); });
-    }, { passive: true });
-  }
-
   /* 8-bit music toggle (off by default) */
   var snd = document.querySelector('.sound');
-  if (snd && window.TAGChiptune && window.matchMedia('(min-width:900px)').matches) {
+  if (snd && window.TAGChiptune && window.matchMedia('(min-width:900px) and (hover:hover)').matches) {
     var setSnd = function (v) { snd.setAttribute('aria-pressed', String(v)); snd.setAttribute('aria-label', v ? 'Music: on' : 'Music: off'); try { localStorage.setItem('tag-music', v ? '1' : '0'); } catch (e) {} };
     snd.addEventListener('click', function () { setSnd(window.TAGChiptune.toggle()); });
     var want = false; try { want = localStorage.getItem('tag-music') === '1'; } catch (e) {}
