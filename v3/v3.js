@@ -106,30 +106,6 @@
     });
   });
 
-  /* character select */
-  var tiles = Array.prototype.slice.call(document.querySelectorAll('.rt'));
-  var rp = document.querySelector('.rp');
-  function pick(t) {
-    tiles.forEach(function (x) { x.setAttribute('aria-pressed', String(x === t)); });
-    var d = t.dataset;
-    var img = rp.querySelector('.rp-img'); img.src = d.img; img.alt = d.name;
-    rp.querySelector('.rp-name').textContent = d.name;
-    rp.querySelector('.rp-tag').textContent = d.role;
-    rp.querySelector('.rp-bio').textContent = d.bio;
-    var li = rp.querySelector('.rp-li');
-    if (d.li) { li.href = d.li; li.hidden = false; } else { li.hidden = true; }
-    if (!reduced) { rp.classList.remove('swap'); void rp.offsetWidth; rp.classList.add('swap'); }
-  }
-  tiles.forEach(function (t) { t.addEventListener('click', function () { pick(t); }); });
-  var grid = document.querySelector('.rgrid');
-  grid.addEventListener('keydown', function (e) {
-    var i = tiles.indexOf(document.activeElement);
-    if (i < 0 || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
-    e.preventDefault();
-    var n = tiles[(i + (e.key === 'ArrowRight' ? 1 : tiles.length - 1)) % tiles.length];
-    n.focus(); pick(n);
-  });
-
   /* Title No.3 - looping retro loader */
   var bar = document.querySelector('.ld-bar b');
   var pct = document.querySelector('.ld-text i');
