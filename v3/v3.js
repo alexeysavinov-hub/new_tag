@@ -118,9 +118,6 @@
     rp.querySelector('.rp-bio').textContent = d.bio;
     var li = rp.querySelector('.rp-li');
     if (d.li) { li.href = d.li; li.hidden = false; } else { li.hidden = true; }
-    var xp = rp.querySelector('.rp-xp');
-    if (d.xp) { xp.hidden = false; xp.querySelector('b').style.width = Math.min(100, d.xp / 25 * 100) + '%'; xp.querySelector('em').textContent = d.xp + ' yrs'; }
-    else { xp.hidden = true; }
     if (!reduced) { rp.classList.remove('swap'); void rp.offsetWidth; rp.classList.add('swap'); }
   }
   tiles.forEach(function (t) { t.addEventListener('click', function () { pick(t); }); });

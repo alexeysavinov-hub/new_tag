@@ -199,17 +199,16 @@ body.menu-open{overflow:hidden}
 .rp.swap .rp-name,.rp.swap .rp-bio,.rp.swap .rp-tag{animation:slide .5s var(--ease)}
 @keyframes slam{0%{transform:scale(1.15) translateY(-10px);opacity:0}100%{transform:none;opacity:1}}
 @keyframes slide{0%{transform:translateX(18px);opacity:0}100%{transform:none;opacity:1}}
-.rgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}
+.rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px auto 0;max-width:420px}
 .rt{position:relative;padding:0;border:2px solid var(--line);border-radius:16px;overflow:hidden;background:#0B0C14;cursor:pointer;aspect-ratio:1;box-shadow:0 4px 0 var(--line);transition:transform .2s var(--pop),box-shadow .2s}
 .rt img{width:100%;height:100%;object-fit:cover;filter:saturate(.6) brightness(.8);transition:filter .25s,transform .4s var(--ease)}
 .rt:hover img,.rt[aria-pressed="true"] img{filter:none;transform:scale(1.07)}
 .rt:hover{transform:translateY(-3px);box-shadow:0 7px 0 var(--line)}
 .rt:focus-visible{outline:3px solid var(--gold2);outline-offset:2px}
 .rt[aria-pressed="true"]{outline:3px solid var(--gold);outline-offset:-3px;box-shadow:0 4px 0 var(--line),0 0 28px rgba(242,179,61,.55)}
-.rt[aria-pressed="true"]::after{content:'P1';position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:6px;background:var(--gold);color:#1B1208;font-size:10px;font-weight:800;letter-spacing:.08em;border:1.5px solid var(--line)}
 .rt span{position:absolute;left:0;right:0;bottom:0;padding:18px 6px 6px;font-size:11px;font-weight:700;background:linear-gradient(to top,rgba(7,8,15,.92),transparent);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
 @media(min-width:700px){.rp-in{grid-template-columns:auto 1fr}}
-@media(min-width:1140px){.rgrid{grid-template-columns:repeat(10,1fr);gap:12px}.rt span{font-size:11px;letter-spacing:-.01em}}
+@media(min-width:1140px){.rgrid{gap:12px}.rt span{font-size:11px;letter-spacing:-.01em}}
 .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:28px}
 .fact{padding:18px 20px;border:2px solid var(--line);border-radius:18px;background:var(--card);box-shadow:0 4px 0 var(--line)}
 .fact b{display:block;font-family:var(--display);font-size:26px;color:var(--gold);line-height:1.1}
